@@ -16,7 +16,7 @@ driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
     })
 
 for city in cities:
-    # scrape_restaurants.getRestaurants(driver, url_prefix+city, city)
+    scrape_restaurants.getRestaurants(driver, url_prefix+city, city)
     scrape_restaurants.getRestaurantInfo(driver, city)
 
 stop = input()
