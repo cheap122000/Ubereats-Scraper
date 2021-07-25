@@ -43,8 +43,12 @@ def getRestaurantInfo(driver: webdriver.Chrome, city: str):
         for category in os.listdir(f'./src/categories/{city}'):
             with open(f'./src/categories/{city}/{category}', 'r', encoding='utf8') as f:
                 urls = json.loads(f.read())
+                mem = None
             for url in urls:
                 # print(url)
+                if mem != None:
+                    if url.find(mem) != -1:
+                        continue
                 driver.get(url)
                 try:
                     driver.find_element_by_id('location-typeahead-location-manager-input').send_keys(address)
@@ -56,7 +60,9 @@ def getRestaurantInfo(driver: webdriver.Chrome, city: str):
                 infoUrl = driver.find_element_by_xpath('/html/body/div/div/main/div[4]/div/div/p/a').get_attribute('href')
                 storeName, storeUUID = parseRestaurantInfo('uuid', infoUrl)
                 longitude, latitude = parseRestaurantInfo('geo', driver.page_source)
-                print(f'{city}, {category}, {storeName}, {storeUUID}, {longitude}, {latitude}')
+                categoryToShow = category.replace('.json', '')
+                print(f'{city}, {categoryToShow}, {storeName}, {storeUUID}, {longitude}, {latitude}')
+                mem = url
 
                 # break
             # break
