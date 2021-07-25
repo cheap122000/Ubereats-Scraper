@@ -61,8 +61,8 @@ def getRestaurantInfo(driver: webdriver.Chrome, city: str):
                 storeName, storeUUID = parseRestaurantInfo('uuid', infoUrl)
                 longitude, latitude = parseRestaurantInfo('geo', driver.page_source)
                 categoryToShow = category.replace('.json', '')
-                print(f'{city}, {categoryToShow}, {storeName}, {storeUUID}, {longitude}, {latitude}')
                 mem = url
+                print(f'{city}, {categoryToShow}, {storeName}, {storeUUID}, {longitude}, {latitude}')
 
                 # break
             # break
