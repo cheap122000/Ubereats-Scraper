@@ -1,11 +1,9 @@
-import string
 from selenium import webdriver
 import json
 import os
 from urllib.parse import unquote
 import re
 import time
-from selenium.webdriver.common import keys
 from selenium.webdriver.common.keys import Keys
 
 def getRestaurants(driver: webdriver.Chrome, url: str, city: str):
