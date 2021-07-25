@@ -60,7 +60,10 @@ def getRestaurantInfo(driver: webdriver.Chrome, city: str):
                 longitude, latitude = parseRestaurantInfo('geo', driver.page_source)
                 categoryToShow = category.replace('.json', '')
                 mem = url
-                print(f'{city}, {categoryToShow}, {storeName}, {storeUUID}, {longitude}, {latitude}')
+                if longitude == 0.0 and latitude == 0.0:
+                    print(f'{city}, {categoryToShow}, {storeName}, {storeUUID}, {longitude}, {latitude}')
+                else:
+                    print(f'ERROR: {city}, {categoryToShow}, {storeName}, {storeUUID}, {longitude}, {latitude}, {url}')
 
                 # break
             # break
@@ -74,11 +77,14 @@ def parseRestaurantInfo(target: str, content: str):
             storeUUID = json.loads(matches[0])['storeUuid']
         return storeName, storeUUID
     elif target == 'geo':
-        matches = re.findall(r'<script type="application\/ld\+json">{"@context":[\w\W]+}]}<\/script>', content)
-        jsonBody = json.loads(unquote(matches[0].replace('\\u002F', '/')).replace(r'<script type="application/ld+json">', '').replace(r'</script>', '').replace('\n', ''))
-        longitude = jsonBody['geo']['longitude']
-        latitude = jsonBody['geo']['latitude']
-        return longitude, latitude
+        try:
+            matches = re.findall(r'<script type="application\/ld\+json">{"@context":[\w\W]+}]}<\/script>', content)
+            jsonBody = json.loads(unquote(matches[0].replace('\\u002F', '/')).replace(r'<script type="application/ld+json">', '').replace(r'</script>', '').replace('\n', ''))
+            longitude = jsonBody['geo']['longitude']
+            latitude = jsonBody['geo']['latitude']
+            return longitude, latitude
+        except:
+            return 0.0, 0.0
 
 
 
