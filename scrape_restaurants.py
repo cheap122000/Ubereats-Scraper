@@ -36,7 +36,7 @@ def getRestaurants(driver: webdriver.Chrome, url: str, city: str):
             print(f"Scrapped failed in category: {category}")
 
 def getRestaurantInfo(driver: webdriver.Chrome, city: str):
-    address = '台北市大安區仁愛路四段345巷4弄' # use fake address
+    address = '台北市大安區羅斯福路四段1號' # use fake address
     for city in os.listdir('./src/categories'):
         for category in os.listdir(f'./src/categories/{city}'):
             with open(f'./src/categories/{city}/{category}', 'r', encoding='utf8') as f:
