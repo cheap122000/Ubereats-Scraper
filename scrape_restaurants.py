@@ -58,7 +58,7 @@ def getRestaurantInfo(driver: webdriver.Chrome, city: str):
                 longitude, latitude = parseRestaurantInfo('geo', driver.page_source)
                 print(f'{city}, {category}, {storeName}, {storeUUID}, {longitude}, {latitude}')
 
-                break
+                # break
             # break
 
 def parseRestaurantInfo(target: str, content: str):
